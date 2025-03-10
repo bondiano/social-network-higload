@@ -28,21 +28,6 @@ impl ErrorResponse {
       ..self
     }
   }
-
-  pub fn with_status(self, status: StatusCode) -> Self {
-    Self {
-      status_code: status,
-      ..self
-    }
-  }
-
-  pub fn not_found(message: &str) -> Self {
-    Self::new(message, "sn.errors.not_found").with_status(StatusCode::NOT_FOUND)
-  }
-
-  pub fn bad_request(message: &str) -> Self {
-    Self::new(message, "sn.errors.bad_request").with_status(StatusCode::BAD_REQUEST)
-  }
 }
 
 impl<T> From<T> for ErrorResponse
@@ -54,7 +39,7 @@ where
       message: error.to_string(),
       code: error
         .code()
-        .unwrap_or_else(|| Box::new("sn.errors.unknown"))
+        .unwrap_or_else(|| Box::new("social_network::errors::unknown"))
         .to_string(),
       details: None,
       status_code: StatusCode::INTERNAL_SERVER_ERROR,
@@ -68,7 +53,9 @@ impl IntoResponse for ErrorResponse {
     (
       self.status_code,
       serde_json::to_string(&self).unwrap_or_else(|_| {
-        String::from(r#"{"message":"Failed to serialize error","code":"sn.errors.internal"}"#)
+        String::from(
+          r#"{"message":"Failed to serialize error","code":"social_network::errors::internal"}"#,
+        )
       }),
     )
       .into_response()

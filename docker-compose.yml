@@ -1,11 +1,27 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:17.4-bookworm
+    container_name: social_network_pg
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=app_db
+    ports:
+      - 5444:5432
     command: ["postgres", "-c", "log_statement=all"]
+    volumes:
+      - pgdata:/data
 
   redis:
-    image: redis:latest
+    image: redis:7.4.1-bookworm
+    container_name: social_network_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --replica-read-only no
+    ports:
+      - 6392:6379
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:

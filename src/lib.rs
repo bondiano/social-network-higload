@@ -19,15 +19,17 @@ use tower_http::{
 };
 use tracing::{info_span, Level};
 
-mod api;
-mod dto;
-mod helpers;
-mod router;
-
 pub mod app_state;
 pub mod config;
 pub mod db;
 pub mod errors;
+
+mod api;
+mod dto;
+mod helpers;
+mod middlewares;
+mod router;
+mod services;
 
 const REQUEST_ID_HEADER: &str = "x-request-id";
 
@@ -73,7 +75,7 @@ pub async fn app(app_config: AppConfig) -> miette::Result<Router> {
     .layer(cors)
     .layer(PropagateRequestIdLayer::new(x_request_id));
 
-  let db = DataSource::init().await?;
+  let db = DataSource::init(&app_config.database_url, &app_config.redis_url).await?;
   let app_state = AppState::init(db, Arc::new(app_config)).await?;
 
   let app = router::create_router(Arc::new(app_state)).layer(middleware_stack);

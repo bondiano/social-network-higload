@@ -1,0 +1,71 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "password",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "first_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "second_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "birth_date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 6,
+        "name": "gender",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 7,
+        "name": "biography",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "city",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "3e320f021f38b70d25f6787678a69cab5446ae92e65af1e7f75bec6c8de39955"
+}

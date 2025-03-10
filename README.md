@@ -1,6 +1,11 @@
 # Social Network
 
-Social Network - social network service for Otus Highload course.
+Social Network - social network service for Otus High Load course.
+
+## Requirements
+
+- Cargo
+- Docker
 
 ## Project Structure
 
@@ -27,9 +32,10 @@ sqlx db setup
 With everything else set up, all you should have to do at this point is:
 
 ```
-cargo run
+make build
+make run
 ```
 
 ## Contributing
 
-- please run [.pre-commit.sh] before sending a PR, it will check everything
+- please run [.pre-commit.sh](./.pre-commit.sh) before sending a PR, it will check everything

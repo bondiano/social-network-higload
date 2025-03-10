@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 
 use clap::Parser;
-use soc_net::{app, config::AppConfig, errors::common::InitError};
+use social_network::{app, config::AppConfig, errors::common::InitError};
 
 use tokio::signal;
 use tracing::{debug, info};
